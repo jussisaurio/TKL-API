@@ -1,0 +1,36 @@
+.navbar-fixed-top {
+
+	background-color: rgb(60,160,220);
+	padding: 0 0 0 0px;
+	height: 100px;
+	margin: auto;
+}
+
+.contentarea {
+
+	background-color: cyan;
+	color: blue;
+	margin: 2px;
+}
+
+.hakupalikka {
+
+	max-width: 300px ;
+}
+
+.container {
+
+	background-color: white;
+}
+
+.contentarea {
+
+	margin-top: 120px;
+	padding-top: 30px;
+	background-color: rgb(0,100,160);
+}
+
+.gotElement {
+
+	background-color: cyan;
+}

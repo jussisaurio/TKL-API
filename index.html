@@ -1,0 +1,56 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+
+  <title>Bussiopas</title>
+  <meta name="description" content="Tampereen bussihaku">
+  <meta name="author" content="Jussi">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  	
+
+  	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
+	
+	<script src="js/app.js"></script>
+
+</head>
+
+<body ng-app="bussiopas" ng-controller="mainCtrl">
+
+<div class="container">
+	<div class="navbar navbar-fixed-top">
+	<div class="row text-center text-primary">
+	<h2>Vitun mahtava bussiopas</h2>
+	</div>
+
+
+	<div align="center" class="col-xs-offset-3 col-xs-6 col-xs-offset-3">
+		<input ng-model="pysakki" required type="text"></input>
+		<button class="btn btn-primary" ng-click="getLines()">Hae</button>
+	</div>
+		</div>
+
+
+	<div class="contentarea col-md-offset-3 col-md-6 col-md-offset-3">
+	<div class="gotElement well text-primary" ng-repeat="linja in linjat">
+	Linja {{linja[0]}}: {{linja[1]}} <br>
+	{{test}}
+	</div>
+	</div>
+</div>
+</body>
+</html>

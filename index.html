@@ -23,8 +23,6 @@
 	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-	<script src="https://maps.googleapis.com/maps/api/js?callback=myMap"></script>
-	
 	<script src="js/app.js"></script>
 
 </head>
@@ -34,23 +32,32 @@
 <div class="container">
 	<div class="navbar navbar-fixed-top">
 	<div class="row text-center text-primary">
-	<h2>Vitun mahtava bussiopas</h2>
+	<h2 style="color: white">Lähin bussipysäkki Tampereella</h2>
 	</div>
 
 
 	<div align="center" class="col-xs-offset-3 col-xs-6 col-xs-offset-3">
-		<input ng-model="pysakki" required type="text"></input>
-		<button class="btn btn-primary" ng-click="getLines()">Hae</button>
+		<form ng-submit="getLines()">
+		<input ng-model="osoite" required type="text" placeholder="Sijaintisi(katuosoite)"></input>
+		<button type="submit">Etsi</button>
+		</form>
 	</div>
 		</div>
 
 
-	<div class="contentarea col-md-offset-3 col-md-6 col-md-offset-3">
+	<div class="contentarea well col-md-offset-3 col-md-6 col-md-offset-3">
+	<span>Lähin bussipysäkki: <strong>{{nearestStop}}</strong> {{nearestDistance}}<br></span>
 	<div class="gotElement well text-primary" ng-repeat="linja in linjat">
-	Linja {{linja[0]}}: {{linja[1]}} <br>
-	{{test}}
+	<br>
 	</div>
 	</div>
 </div>
+
+
+
+
+
+
+
 </body>
 </html>

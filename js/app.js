@@ -3,28 +3,101 @@ var app = angular.module('bussiopas', []);
 
 app.controller ('mainCtrl', ['$scope', function($scope){
 
+	
 
 
+	// User clicks on submit button
 	$scope.getLines = function() {
 
 
-		$.getJSON("http://data.itsfactory.fi/journeys/api/1/lines?description=" + $scope.pysakki, function(json){
+		// Calculates the distance (m) between two map locations with the Haversine formula
+		function calcDistance (lat1, lng1, lat2, lng2) {
+
+			// converts degrees to radians
+			function toRadians(x) {
+   				return x * Math.PI / 180;
+			}
 
 
-				$scope.tiedot=json.body;
-				$scope.linjat=[];
+			var earthRadius = 6371000; // 6 371 km
+			
+			var lat1Rad = toRadians(lat1);
+			var lat2Rad = toRadians(lat2);
+			var latDelta = toRadians(lat2-lat1);
+			var lngDelta = toRadians(lng2-lng1);
 
-				$scope.tiedot.forEach(function(linja){
+			var a = Math.sin(latDelta/2) * Math.sin(latDelta/2) // sin^2
+			+ Math.cos(lat1Rad) * Math.cos(lat2Rad) *
+        	Math.sin(lngDelta/2) * Math.sin(lngDelta/2); /// sin^2
 
-					var keys = Object.keys(linja);
+			var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
 
-					$scope.linjat.push([linja.name, linja.description]);
-				});
+			var distance = earthRadius * c;
 
-				
+			return distance;
+		}
+
+		// lets add Tampere to the submitted address so that our API only finds Tampere locations
+		$scope.addressToFind = "http://api.okf.fi/gis/1/geocode.json?address="+$scope.osoite+"+Tampere";
+		
+		// fetch JSON file from API
+		$.getJSON($scope.addressToFind, function(json){
+
+			
+			
+			// callback
+			$scope.data = json;
+
 
 		});
+
+
+		if ($scope.data.status === "ZERO_RESULTS") {
+
+			$scope.nearestStop = "Pysäkkiä ei löytynyt. Kirjoitithan kadunnimen oikein (katu numero)?";
+			$scope.nearestDistance ="";
+		}
+		
+		if ($scope.data.status === "OK") {
+
+
+			// save coordinates in variables
+			var givenLat = $scope.data.results[0].geometry.location.lat;
+			var givenLng = $scope.data.results[0].geometry.location.lng;
+
+		
+			$.getJSON("http://data.itsfactory.fi/journeys/api/1/stop-points", function(stopdata){
+
+				var busStops = stopdata.body;
+
+				var smallestDistance = Number.MAX_VALUE;
+				var nearestStop ="";
+
+				busStops.forEach(function (stop) {
+
+					var coordinates = stop.location.split(",");
+
+					var dist = calcDistance(givenLat, givenLng, coordinates[0], coordinates[1]);
+
+					if (dist < smallestDistance) {
+
+						smallestDistance = dist;
+						nearestStop = stop.name;
+					}
+
+				});
+
+			
+			$scope.nearestStop = nearestStop;
+			$scope.nearestDistance = "("+Math.round(smallestDistance) + " m)";
+
+		});
+		}
+				
+
 	};
+
+
 	
 
 

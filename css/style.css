@@ -6,34 +6,63 @@
 	margin: auto;
 }
 
+.mainheader {
+
+	color: white;
+}
+
 .contentarea {
 
-	background-color: cyan;
-	color: blue;
+	color: black;
 	margin: 2px;
 }
 
-.hakupalikka {
+.desctext {
 
-	max-width: 300px ;
+	font-size: 14px !important;
+	padding: 10px 30px 10px 30px !important;
 }
 
-.container {
+.jumbotron {
 
-	background-color: white;
+	background: blue;
+}
+
+
+.etsinappula {
+
+	position: relative;
+	width: 50px ;
 }
 
 .contentarea {
 
-	margin-top: 120px;
+	margin-top: 20px;
 	padding-top: 30px;
 	background-color: rgb(200,200,220);
 }
 
-.gotElement {
+a:link {
 
-	background-color: cyan;
+	color: black;
 }
+
+a:visited {
+
+	color: black;
+}
+
+a:hover {
+
+	color: blue;
+}
+
+a:active {
+
+	color: black;
+}
+
+
 
 
 
